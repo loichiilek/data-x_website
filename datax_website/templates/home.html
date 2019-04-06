@@ -1,57 +1,65 @@
 {% extends "layout.html" %} {% block content %}
 
 <div class="container" id="main">
-    <div class="container shadow" id="ride-query">
-        <div class="row">
-            <div class="col-md-4">
-                <input
-                    type="text"
-                    class="form-control datetimepicker-input"
-                    id="datetimepicker"
-                    data-toggle="datetimepicker"
-                    data-target="#datetimepicker"
-                    placeholder="Select Date & Time of Ride"
-                />
-            </div>
-            <div class="col-md-4 form-group">
-                <select class="form-control" id="exampleSelect1">
-                    <option>Ride 1</option>
-                    <option>Ride 2</option>
-                    <option>Ride 3</option>
-                    <option>Ride 4</option>
-                    <option>Ride 5</option>
-                </select>
-            </div>
+    <div class="container shadow form" id="ride-query">
+        <form action="/query_wait_time" method="post">
+            <div class="row">
+                <div class="col-md-4">
+                    <input
+                        name="datetime"
+                        type="text"
+                        class="form-control datetimepicker-input"
+                        id="datetimepicker"
+                        data-toggle="datetimepicker"
+                        data-target="#datetimepicker"
+                        placeholder="Select Date & Time of Ride"
+                        required
+                    />
+                </div>
+                <div class="col-md-4 form-group">
+                    <select class="form-control" name="ride">
+                        <option>Ride 1</option>
+                        <option>Ride 2</option>
+                        <option>Ride 3</option>
+                        <option>Ride 4</option>
+                        <option>Ride 5</option>
+                    </select>
+                </div>
 
-            <div class="col-md-4" style="text-align: center">
-                <button type="button" class="btn btn-outline-primary btn-block">
-                    Find Estimated Waiting Time <i class="fas fa-play" style="margin-left: 10px"></i>
-                </button>
-            </div>
+                <div class="col-md-4" style="text-align: center">
+                    <button
+                        type="submit"
+                        class="btn btn-outline-primary btn-block"
+                    >
+                        Find Estimated Waiting Time
+                        <i class="fas fa-play" style="margin-left: 10px"></i>
+                    </button>
+                </div>
 
-            <script type="text/javascript">
-                $.fn.datetimepicker.Constructor.Default = $.extend(
-                    {},
-                    $.fn.datetimepicker.Constructor.Default,
-                    {
-                        icons: {
-                            time: "far fa-clock",
-                            date: "far fa-calendar-alt",
-                            up: "fas fa-chevron-up",
-                            down: "fas fa-chevron-down",
-                            previous: "fas fa-chevron-left",
-                            next: "fas fa-chevron-right",
-                            today: "far fa-calendar-check-o",
-                            clear: "far fa-trash",
-                            close: "far fa-times"
+                <script type="text/javascript">
+                    $.fn.datetimepicker.Constructor.Default = $.extend(
+                        {},
+                        $.fn.datetimepicker.Constructor.Default,
+                        {
+                            icons: {
+                                time: "far fa-clock",
+                                date: "far fa-calendar-alt",
+                                up: "fas fa-chevron-up",
+                                down: "fas fa-chevron-down",
+                                previous: "fas fa-chevron-left",
+                                next: "fas fa-chevron-right",
+                                today: "far fa-calendar-check-o",
+                                clear: "far fa-trash",
+                                close: "far fa-times"
+                            }
                         }
-                    }
-                );
-                $(function() {
-                    $("#datetimepicker").datetimepicker();
-                });
-            </script>
-        </div>
+                    );
+                    $(function() {
+                        $("#datetimepicker").datetimepicker();
+                    });
+                </script>
+            </div>
+        </form>
     </div>
 
     <p>
