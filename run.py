@@ -13,3 +13,4 @@ for extra_dir in extra_dirs:
 
 if __name__ == '__main__':
     app.run(debug=True, extra_files=extra_files)
+

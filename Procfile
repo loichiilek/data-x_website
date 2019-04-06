@@ -1,1 +1,1 @@
-web: gunicorn run
+web: gunicorn ./datax_website/__init__:app
