@@ -1,0 +1,125 @@
+body {
+    background: #f3f3f9 !important;
+    font-family: "Lato", sans-serif !important;
+}
+
+
+/* For the query container */
+.container#main {
+    background: #fff;
+    height: 1000px;
+}
+
+.container#ride-query {
+    position: relative;
+    padding: 10px 10px 10px 10px;
+    margin: -40px 20px 50px 20px;
+    z-index: 10000;
+    background: #f3f3f3;
+    border-radius: 5px;
+    width: auto;
+}
+
+.container#ride-query > .row {
+    padding: 20px 20px;
+}
+
+.col-md-4.form-group {
+    margin-bottom: 0px;
+}
+
+#ride-query>.row>.col-md-4{
+    margin: 5px 0;
+}
+
+/* Btns */
+.btn-primary {
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
+
+.btn-primary:hover {
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
+
+.btn-outline-primary {
+    color: #337ab7;
+    border-color: #337ab7;
+}
+
+.btn-outline-primary:hover {
+    color: white;
+    background-color: #337ab7;
+    border-color: #337ab7;
+
+}
+
+.btn-outline-primary::selection {
+    color: white;
+    background-color: #337ab7;
+    border-color: #337ab7;
+
+}
+
+
+/* Others */
+
+.container {
+    margin: 0 auto 0 auto;
+    padding: 0 15px 15px 15px;
+}
+
+.jumbotron {
+    margin-bottom: 0;
+    background-image: url(/static/img/background.jpg);
+    background-position-x: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    border-radius: 0%;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    color: white;
+}
+
+.jumbotron > p {
+    padding: 20px 50px 80px 50px;
+}
+
+.jumbotron > h1 {
+    padding: 100px 0 0 0;
+    text-shadow: 1px 1px rgb(50, 50, 50);
+}
+
+
+@media (min-width: 768px) {
+    .jumbotron {
+        height: 500px;
+        width: 750px;
+    }
+    .jumbotron > p {
+        padding: 20px 80px 80px 80px;
+    }
+}
+
+@media (min-width: 992px) {
+    .jumbotron {
+        height: 550px;
+        width: 100%;
+    }
+    .jumbotron > p {
+        padding: 20px 100px 80px 100px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .jumbotron {
+        height: 500px;
+        width: 100%;
+    }
+    .jumbotron > p {
+        padding: 20px 200px 80px 200px;
+    }
+}
