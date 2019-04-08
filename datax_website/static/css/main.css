@@ -3,6 +3,56 @@ body {
     font-family: "Lato", sans-serif !important;
 }
 
+/* Information Stuff */
+.container.information > h3 {
+    text-align: center;
+    color: #52959e;
+    margin: 15px auto 0 auto;
+    padding-top: 20px;
+    font-weight: 700;
+}
+
+.container.information > p {
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+
+
+/* Testimonial Stuff */
+.container.testimonial {
+    margin-top: 300px;
+
+}
+
+
+.container.testimonial > h3 {
+    text-align: center;
+    color: #52959e;
+    margin: 15px auto 0 auto;
+    padding-top: 20px;
+    font-weight: 700;
+}
+
+.container.testimonial > p {
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+
+
+.container.testimonial > .row > div > img {
+    width: 60%;
+    border-radius: 50%;
+    border-color: #eee;
+    border-width: 1px;
+    border-style: ridge;
+}
+
+.container.testimonial > .row > div > p {
+    margin: 10px;
+}
+
 
 /* For the query container */
 .container#main {
@@ -10,14 +60,6 @@ body {
     height: 1000px;
 }
 
-/* Testimonial Stuff */
-.container.testimonial {
-    margin-top: 300px;
-}
-
-.container.testimonial > .row > div > img {
-    width: 60%;
-}
 .container#ride-query {
     position: relative;
     padding: 10px 10px 10px 10px;
@@ -32,8 +74,9 @@ body {
     padding: 20px 20px;
 }
 
+
 form>.row>.col-md-3 {
-    margin-bottom: 10px;
+    margin-bottom: 0px;
 }
 
 #ride-query>.row>.col-md-3{
@@ -42,31 +85,31 @@ form>.row>.col-md-3 {
 
 /* Btns */
 .btn-primary {
-    background-color: #337ab7;
-    border-color: #337ab7;
+    background-color: #52959e;
+    border-color: #52959e;
 }
 
 .btn-primary:hover {
-    background-color: #337ab7;
-    border-color: #337ab7;
+    background-color: #52959e;
+    border-color: #52959e;
 }
 
 .btn-outline-primary {
-    color: #337ab7;
-    border-color: #337ab7;
+    color: #52959e;
+    border-color: #52959e;
 }
 
 .btn-outline-primary:hover {
     color: white;
-    background-color: #337ab7;
+    background-color: #52959e;
     border-color: #337ab7;
 
 }
 
 .btn-outline-primary::selection {
     color: white;
-    background-color: #337ab7;
-    border-color: #337ab7;
+    background-color: #52959e;
+    border-color: #52959e;
 
 }
 
