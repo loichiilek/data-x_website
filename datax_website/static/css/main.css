@@ -7,8 +7,9 @@ body {
 .container.information > h3 {
     text-align: center;
     color: #52959e;
-    margin: 15px auto 0 auto;
-    padding-top: 20px;
+    margin: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
     font-weight: 700;
 }
 
@@ -114,6 +115,8 @@ form>.row>.col-md-3 {
 }
 
 
+
+
 /* Others */
 
 .container {
@@ -141,7 +144,7 @@ form>.row>.col-md-3 {
 
 .jumbotron > h1 {
     padding: 100px 0 0 0;
-    text-shadow: 1px 1px rgb(50, 50, 50);
+    text-shadow: 1px 1px rgb(85, 85, 85);
 }
 
 
