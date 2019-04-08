@@ -4,7 +4,7 @@
     <div class="container shadow form" id="ride-query">
         <form action="/query_wait_time" method="post">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <input
                         name="datetime"
                         type="text"
@@ -16,7 +16,7 @@
                         required
                     />
                 </div>
-                <div class="col-md-4 form-group">
+                <div class="col-md-3 form-group">
                     <select class="form-control" name="ride">
                         <option>Ride 1</option>
                         <option>Ride 2</option>
@@ -25,14 +25,20 @@
                         <option>Ride 5</option>
                     </select>
                 </div>
+                <div class="col-md-3 form-group">
+                    <select class="form-control" name="fastpass">
+                        <option>FastPass+ Active</option>
+                        <option>FastPass+ Inactive</option>
+                    </select>
+                </div>
 
-                <div class="col-md-4" style="text-align: center">
+                <div class="col-md-3" style="text-align: center">
                     <button
                         type="submit"
                         class="btn btn-outline-primary btn-block"
                     >
                         Find Estimated Waiting Time
-                        <i class="fas fa-play" style="margin-left: 10px"></i>
+                        <!-- <i class="fas fa-play" style="margin-left: 10px"></i> -->
                     </button>
                 </div>
 
@@ -68,5 +74,54 @@
         obcaecati maiores, veniam adipisci, exercitationem amet quas. Atque iure
         aliquam perferendis dicta!
     </p>
+    <div class="container testimonial">
+        <h3>Testimonial</h3>
+        <div class="row">
+            <div
+                class="col-lg-4 col-md-4 col-xs-4 thumb"
+                style="text-align: center"
+            >
+                <img
+                    class="img-fluid"
+                    src="http://placehold.it/300x300"
+                    alt=""
+                />
+                <p>
+                    Never have I taken so many rides in one day. SmartQ makes
+                    having fun in DisneyWorld so much easier!
+                </p>
+            </div>
+            <div
+                class="col-lg-4 col-md-4 col-xs-4 thumb"
+                style="text-align: center"
+            >
+                <img
+                    class="img-fluid"
+                    src="http://placehold.it/300x300"
+                    alt=""
+                />
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Rerum itaque fugit culpa harum dolorum maxime modi dolore
+                    incidunt quas?
+                </p>
+            </div>
+            <div
+                class="col-lg-4 col-md-4 col-xs-4 thumb"
+                style="text-align: center"
+            >
+                <img
+                    class="img-fluid"
+                    src="http://placehold.it/300x300"
+                    alt=""
+                />
+                <p>
+                    Delectus nesciunt consequatur odit atque voluptatem tempora
+                    possimus facere, doloribus laudantium.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    {% endblock content %}
 </div>
-{% endblock content %}
