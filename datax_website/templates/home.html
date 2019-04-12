@@ -1,8 +1,10 @@
 {% extends "layout.html" %} {% block content %}
 
+
+
 <div class="container" id="main">
     <div class="container shadow form" id="ride-query">
-        <form action="/query_wait_time" method="post">
+        <form method="post" id="query-form">
             <div class="row">
                 <div class="col-md-3">
                     <input
@@ -18,24 +20,25 @@
                 </div>
                 <div class="col-md-3 form-group">
                     <select class="form-control" name="ride">
-                        <option>Ride 1</option>
-                        <option>Ride 2</option>
-                        <option>Ride 3</option>
-                        <option>Ride 4</option>
-                        <option>Ride 5</option>
+                        {% for ride in data %}
+                        <option name="{{ data.index(ride) }}" value="{{ data.index(ride) }}">{{
+                            ride
+                        }}</option>
+                        {% endfor %}
                     </select>
                 </div>
                 <div class="col-md-3 form-group">
                     <select class="form-control" name="fastpass">
-                        <option>FastPass+ Active</option>
-                        <option>FastPass+ Inactive</option>
+                        <option value="1">FastPass+ Active</option>
+                        <option value="0">FastPass+ Inactive</option>
                     </select>
                 </div>
 
                 <div class="col-md-3" style="text-align: center">
                     <button
-                        type="submit"
+                        type="button"
                         class="btn btn-outline-primary btn-block"
+                        id="query-button"
                     >
                         Find Estimated Waiting Time
                         <!-- <i class="fas fa-play" style="margin-left: 10px"></i> -->
@@ -66,6 +69,11 @@
                 </script>
             </div>
         </form>
+    </div>
+
+    <div id="container-result" class="container result">
+        <h3>Waiting time for ride: </h3>
+        <p id="wait-time-result"></p>
     </div>
 
     <div class="container information">
@@ -127,6 +135,38 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        function query_function() {
+            
+            var datetime = $("input[name='datetime']").val();
+            var ride = $("select[name='ride']").val();
+            var fastpass = $("select[name='fastpass']").val();
+
+            var data = JSON.stringify({"datetime": datetime, "ride": ride, "fastpass": fastpass});
+            
+            console.log(data)
+            $.ajax({
+                type: "POST",
+                url: "/query_wait_time",
+                data: data,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                success: function(result) {
+                    var selector = "option[name='" + ride + "'][value='" + ride + "']";
+                    var text_result = $(selector).text() + ": " + result + " minutes";
+                    $('#wait-time-result').text(text_result);
+                    $("#container-result").show();
+                },
+                error: function(result) {
+                    alert("error");
+                }
+            });
+        }
+        
+        $("#query-button").click(function(){ query_function(); });
+    </script>
 
     {% endblock content %}
 </div>

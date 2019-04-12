@@ -3,6 +3,25 @@ body {
     font-family: "Lato", sans-serif !important;
 }
 
+/* Result stuff */
+.container.result {
+    display: none;
+}
+
+.container.result > h3 {
+    text-align: center;
+    color: #52959e;
+    margin: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-weight: 700;
+}
+
+.container.result > p {
+    text-align: center;
+    padding-bottom: 10px;
+}
+
 /* Information Stuff */
 .container.information > h3 {
     text-align: center;
