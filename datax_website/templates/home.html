@@ -19,7 +19,8 @@
                     />
                 </div>
                 <div class="col-md-3 form-group">
-                    <select class="form-control" name="ride">
+                    <select class="form-control" name="ride" >
+                        <option value="" disabled selected>Select ride</option>
                         {% for ride in data %}
                         <option name="{{ data.index(ride) }}" value="{{ data.index(ride) }}">{{
                             ride
@@ -155,16 +156,22 @@
                 },
                 success: function(result) {
                     var selector = "option[name='" + ride + "'][value='" + ride + "']";
+                    console.log(selector)
                     var text_result = $(selector).text() + ": " + result + " minutes";
                     $('#wait-time-result').text(text_result);
                     $("#container-result").show();
                 },
                 error: function(result) {
-                    alert("error");
+                    alert("Please fill in all the inputs");
                 }
             });
         }
-        
+
+       
+        $(function() {
+            $("option[name='0'][value='0']").hide();
+        });
+
         $("#query-button").click(function(){ query_function(); });
     </script>
 
