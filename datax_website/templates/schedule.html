@@ -1,0 +1,95 @@
+{% extends "layout.html" %} {% block content %}
+<div class="container" id="main">
+    <div class="container genre-selection">
+        <h3>Genre Selection</h3>
+        <form action="/request_genre">
+            <!-- add class p-curve -->
+            <div class="pretty p-icon p-curve p-jelly">
+                <input class="genre-checkbox" type="checkbox" value="4D" />
+                <div class="state p-primary">
+                    <i class="icon fa fa-check-square"></i>
+                    <label class="genre-label" name="4D">
+                        4D Rides
+                    </label>
+                </div>
+            </div>
+
+            <div class="pretty p-icon p-curve p-jelly">
+                <input class="genre-checkbox" type="checkbox" value="Thrill" />
+                <div class="state p-primary">
+                    <i class="icon fa fa-check-square"></i>
+                    <label id="test" class="genre-label" name="Thrill">
+                        Thrill Rides
+                    </label>
+                </div>
+            </div>
+
+            <div class="pretty p-icon p-curve p-jelly">
+                <input class="genre-checkbox" type="checkbox" value="Haunted" />
+                <div class="state p-primary">
+                    <i class="icon fa fa-check-square"></i>
+                    <label class="genre-label" name="Haunted">
+                        Haunted Houses
+                    </label>
+                </div>
+            </div>
+        </form>
+        <h3>Rides Selection</h3> 
+        <form action="/request_schedule">
+            <div class="row">
+                {% for ride in data %}
+                <div class="col-lg-6 col-md-12 col-sm-12">
+                    <div class="pretty p-icon p-curve p-jelly">
+                        <input type="checkbox" id="ride-{{ data.index(ride) }}"/>
+                        <div class="state p-primary">
+                            <i class="icon fa fa-check-square"></i>
+                            <label
+                                name="{{ data.index(ride) }}"
+                                value="{{ data.index(ride) }}"
+                            >
+                                {{ ride }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                {% endfor %}
+            </div>
+        </form>
+        <button type="button" class="btn btn-primary btn-block">Generate Optimal Schedule</button>
+    </div>
+</div>
+
+<script>
+    $(function() {
+        $(".genre-checkbox").click(function() {
+            if($(this).prop("checked") == true){
+                fetch("/query/" + $(this).val()).then(function(response) {
+
+                    response.json().then(function(data) {
+                        
+                        for (let ride of data.rides) {
+                            var selector = "#ride-" + ride;
+                            $(selector).prop( "checked", true );
+                        }
+                    });
+                });
+            }
+            else if($(this).prop("checked") == false){
+                fetch("/query/" + $(this).val()).then(function(response) {
+
+                    response.json().then(function(data) {
+                        
+                        for (let ride of data.rides) {
+                            var selector = "#ride-" + ride;
+                            $(selector).prop( "checked", false );
+                        }
+                    });
+                });
+            }
+
+        });
+    });
+</script>
+
+{% endblock content %}

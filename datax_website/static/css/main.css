@@ -6,6 +6,11 @@ body {
 /* Result stuff */
 .container.result {
     display: none;
+    margin: 20px auto 10px auto;
+    border-color: #e0e0e0;
+    border-style: solid;
+    background-color: #fff;
+    border-radius: 5px;
 }
 
 .container.result > h3 {
@@ -37,14 +42,28 @@ body {
     padding-bottom: 10px;
 }
 
+/* Genre-Selection */
+.container.genre-selection {
+    margin: auto;
+}
 
+.container.genre-selection > h3 {
+    /* text-align: center; */
+    color: #52959e;
+    padding-bottom: 10px;
+    margin: 15px auto 15px auto;
+    font-weight: 700;
+    border-bottom: 1px solid #888;
+}
+
+.container.genre-selection > form {
+    padding-bottom: 30px;
+}
 
 /* Testimonial Stuff */
 .container.testimonial {
-    margin-top: 300px;
-
+    margin-top: 100px;
 }
-
 
 .container.testimonial > h3 {
     text-align: center;
@@ -59,8 +78,6 @@ body {
     padding-bottom: 10px;
 }
 
-
-
 .container.testimonial > .row > div > img {
     width: 60%;
     border-radius: 50%;
@@ -73,16 +90,15 @@ body {
     margin: 10px;
 }
 
-
 /* For the query container */
 .container#main {
     background: #fff;
-    height: 1000px;
+    height: auto;
 }
 
 .container#ride-query {
     position: relative;
-    padding: 10px 10px 10px 10px;
+    padding: 15px 10px 15px 10px;
     margin: -40px 20px 50px 20px;
     z-index: 10000;
     background: #f3f3f3;
@@ -94,12 +110,11 @@ body {
     padding: 20px 20px;
 }
 
-
-form>.row>.col-md-3 {
+form > .row > .col-md-3 {
     margin-bottom: 0px;
 }
 
-#ride-query>.row>.col-md-3{
+#ride-query > .row > .col-md-3 {
     margin: 5px 0;
 }
 
@@ -114,6 +129,16 @@ form>.row>.col-md-3 {
     border-color: #52959e;
 }
 
+.btn-primary:focus {
+    background-color: #52959e;
+    border-color: #52959e;
+}
+
+.btn-primary:active {
+    background-color: #467c83 !important;
+    border-color: #467c83 !important;
+}
+
 .btn-outline-primary {
     color: #52959e;
     border-color: #52959e;
@@ -121,26 +146,21 @@ form>.row>.col-md-3 {
 
 .btn-outline-primary:hover {
     color: white;
-    background-color: #52959e;
-    border-color: #337ab7;
-
+    background-color: #52959e !important;
+    border-color: #337ab7 !important;
 }
 
 .btn-outline-primary::selection {
     color: white;
-    background-color: #52959e;
-    border-color: #52959e;
-
+    background-color: #52959e !important;
+    border-color: #52959e !important;
 }
-
-
-
 
 /* Others */
 
 .container {
     margin: 0 auto 0 auto;
-    padding: 0 15px 15px 15px;
+    padding: 15px 15px 15px 15px;
 }
 
 .jumbotron {
@@ -165,9 +185,6 @@ form>.row>.col-md-3 {
     padding: 100px 0 0 0;
     text-shadow: 1px 1px rgb(85, 85, 85);
 }
-
-
-
 
 @media (min-width: 768px) {
     .jumbotron {

@@ -1,5 +1,5 @@
 from datax_website import app
-from flask import render_template, url_for, request, redirect
+from flask import render_template, url_for, request, redirect, jsonify
 
 rides = [
     "'It's a small world'",
@@ -94,22 +94,16 @@ def query_api(datetime, ride, fastpass):
     message_array = np.append(message_array, 0)
     message_array = np.append(message_array, 0)
 
-
+    # format the message
     print(message_array.reshape(1,-1).tolist())
-    # print(len(message_array))
-    # print(ride)
 
-    # df = pd.read_csv("datax_website\static\X_test.csv")
-        
-    # print(len(df.columns))
-    # print(len(rides))
     
     send_test = message_array.reshape(1,-1).tolist()
     json_file = "file.json"
     json_data = json.dumps(send_test)
     print(json_data)
     
-    resp = requests.post("https://f70a4b77.ngrok.io",
+    resp = requests.post("https://98518005.ngrok.io",
                         data = json_data,
                         headers= header)
     
@@ -122,6 +116,12 @@ def query_api(datetime, ride, fastpass):
 def home():
 
     return render_template('home.html', data = rides)
+
+
+@app.route("/schedule")
+def schedule():
+
+    return render_template('schedule.html', data = rides)
 
 
 @app.route("/query_wait_time", methods=['POST'])
@@ -140,6 +140,14 @@ def query_wait_time():
     return query_response
 
 
+@app.route("/query/<genre>")
+def query(genre):
+    if genre == "Haunted":
+        return jsonify({'rides': ['1', '3', '32', '21']})
+    if genre == "4D":
+        return jsonify({'rides': ['5', '8', '12', '19']})
+    if genre == "Thrill":
+        return jsonify({'rides': ['17', '29', '16', '11']})
 
 
 

@@ -70,12 +70,13 @@
                 </script>
             </div>
         </form>
+        <div id="container-result" class="container result">
+            <h3>Waiting time for ride: </h3>
+            <p id="wait-time-result"></p>
+        </div>
     </div>
 
-    <div id="container-result" class="container result">
-        <h3>Waiting time for ride: </h3>
-        <p id="wait-time-result"></p>
-    </div>
+
 
     <div class="container information">
         <h3>How does SmartQ work?</h3>
@@ -115,9 +116,7 @@
                     alt=""
                 />
                 <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Rerum itaque fugit culpa harum dolorum maxime modi dolore
-                    incidunt quas?
+                    With SmartQ, I was able to meet my favourite Disney's princesses. I even found the time to take pictures with little mermaid!
                 </p>
             </div>
             <div
@@ -130,8 +129,7 @@
                     alt=""
                 />
                 <p>
-                    Delectus nesciunt consequatur odit atque voluptatem tempora
-                    possimus facere, doloribus laudantium.
+                    Whenever I see people queuing up, I just feel so lucky I have SmartQ.
                 </p>
             </div>
         </div>
@@ -175,5 +173,6 @@
         $("#query-button").click(function(){ query_function(); });
     </script>
 
-    {% endblock content %}
+    
 </div>
+{% endblock content %}
