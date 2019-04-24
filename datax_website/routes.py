@@ -103,7 +103,7 @@ def query_api(datetime, ride, fastpass):
     json_data = json.dumps(send_test)
     print(json_data)
     
-    resp = requests.post("https://98518005.ngrok.io",
+    resp = requests.post("http://35.236.127.51:5000/",
                         data = json_data,
                         headers= header)
     
