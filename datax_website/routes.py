@@ -124,10 +124,10 @@ def schedule():
     return render_template('schedule.html', data = rides)
 
 
-@app.route("/ride_statistic")
-def ride_statistic():
+@app.route("/ride_statistics")
+def ride_statistics():
 
-    return render_template('ride_statistic.html', data = rides)
+    return render_template('ride_statistics.html', data = rides)
 
 
 @app.route("/query_wait_time", methods=['POST'])
