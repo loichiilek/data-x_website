@@ -143,11 +143,13 @@ def query_wait_time():
 @app.route("/query/<genre>")
 def query(genre):
     if genre == "Haunted":
-        return jsonify({'rides': ['1', '3', '32', '21']})
+        return jsonify({'rides': ['1', '11', '32', '21']})
     if genre == "4D":
         return jsonify({'rides': ['5', '8', '12', '19']})
     if genre == "Thrill":
         return jsonify({'rides': ['17', '29', '16', '11']})
+    if genre == "Show":
+        return jsonify({'rides': ['20', '19', '26', '10']})
 
 
 

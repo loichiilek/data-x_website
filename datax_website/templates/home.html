@@ -6,7 +6,7 @@
     <div class="container shadow form" id="ride-query">
         <form method="post" id="query-form">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <input
                         name="datetime"
                         type="text"
@@ -18,7 +18,7 @@
                         required
                     />
                 </div>
-                <div class="col-md-3 form-group">
+                <div class="col-md-4 form-group">
                     <select class="form-control" name="ride" >
                         <option value="" disabled selected>Select ride</option>
                         {% for ride in data %}
@@ -28,14 +28,14 @@
                         {% endfor %}
                     </select>
                 </div>
-                <div class="col-md-3 form-group">
+                <!-- <div class="col-md-3 form-group">
                     <select class="form-control" name="fastpass">
                         <option value="1">FastPass+ Active</option>
                         <option value="0">FastPass+ Inactive</option>
                     </select>
-                </div>
+                </div> -->
 
-                <div class="col-md-3" style="text-align: center">
+                <div class="col-md-4" style="text-align: center">
                     <button
                         type="button"
                         class="btn btn-outline-primary btn-block"
@@ -140,9 +140,9 @@
             
             var datetime = $("input[name='datetime']").val();
             var ride = $("select[name='ride']").val();
-            var fastpass = $("select[name='fastpass']").val();
+            //var fastpass = $("select[name='fastpass']").val();
 
-            var data = JSON.stringify({"datetime": datetime, "ride": ride, "fastpass": fastpass});
+            var data = JSON.stringify({"datetime": datetime, "ride": ride, "fastpass": 1});
             
             console.log(data)
             $.ajax({

@@ -33,14 +33,27 @@
                     </label>
                 </div>
             </div>
+
+            <div class="pretty p-icon p-curve p-jelly">
+                <input class="genre-checkbox" type="checkbox" value="Show" />
+                <div class="state p-primary">
+                    <i class="icon fa fa-check-square"></i>
+                    <label class="genre-label" name="Show">
+                        Show
+                    </label>
+                </div>
+            </div>
         </form>
-        <h3>Rides Selection</h3> 
+        <h3>Rides Selection</h3>
         <form action="/request_schedule">
             <div class="row">
                 {% for ride in data %}
                 <div class="col-lg-6 col-md-12 col-sm-12">
                     <div class="pretty p-icon p-curve p-jelly">
-                        <input type="checkbox" id="ride-{{ data.index(ride) }}"/>
+                        <input
+                            type="checkbox"
+                            id="ride-{{ data.index(ride) }}"
+                        />
                         <div class="state p-primary">
                             <i class="icon fa fa-check-square"></i>
                             <label
@@ -56,38 +69,34 @@
                 {% endfor %}
             </div>
         </form>
-        <button type="button" class="btn btn-primary btn-block">Generate Optimal Schedule</button>
+        <button type="button" class="btn btn-primary btn-block">
+            Generate Optimal Schedule
+        </button>
     </div>
 </div>
 
 <script>
     $(function() {
         $(".genre-checkbox").click(function() {
-            if($(this).prop("checked") == true){
+            if ($(this).prop("checked") == true) {
                 fetch("/query/" + $(this).val()).then(function(response) {
-
                     response.json().then(function(data) {
-                        
                         for (let ride of data.rides) {
                             var selector = "#ride-" + ride;
-                            $(selector).prop( "checked", true );
+                            $(selector).prop("checked", true);
+                        }
+                    });
+                });
+            } else if ($(this).prop("checked") == false) {
+                fetch("/query/" + $(this).val()).then(function(response) {
+                    response.json().then(function(data) {
+                        for (let ride of data.rides) {
+                            var selector = "#ride-" + ride;
+                            $(selector).prop("checked", false);
                         }
                     });
                 });
             }
-            else if($(this).prop("checked") == false){
-                fetch("/query/" + $(this).val()).then(function(response) {
-
-                    response.json().then(function(data) {
-                        
-                        for (let ride of data.rides) {
-                            var selector = "#ride-" + ride;
-                            $(selector).prop( "checked", false );
-                        }
-                    });
-                });
-            }
-
         });
     });
 </script>
