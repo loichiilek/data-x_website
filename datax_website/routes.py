@@ -124,6 +124,12 @@ def schedule():
     return render_template('schedule.html', data = rides)
 
 
+@app.route("/ride_statistic")
+def ride_statistic():
+
+    return render_template('ride_statistic.html', data = rides)
+
+
 @app.route("/query_wait_time", methods=['POST'])
 def query_wait_time():
     print("###############################################################################################")
