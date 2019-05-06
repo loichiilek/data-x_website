@@ -1,4 +1,53 @@
 {% extends "layout.html" %} {% block content %}
 
+<div class="container" id="main">
+    <div class="container ride-statistics">
+        <h3>Select Ride</h3>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <div
+                        class="input-group date"
+                        id="datetimepicker4"
+                        data-target-input="nearest"
+                    >
+                        <input
+                            type="text"
+                            class="form-control datetimepicker-input"
+                            data-target="#datetimepicker4"
+                            placeholder="Select Date of Visit"
+                        />
+                        <div
+                            class="input-group-append"
+                            data-target="#datetimepicker4"
+                            data-toggle="datetimepicker"
+                        >
+                            <div class="input-group-text">
+                                <i class="fa fa-calendar-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script type="text/javascript">
+                $(function() {
+                    $("#datetimepicker4").datetimepicker({
+                        format: "L"
+                    });
+                });
+            </script>
+            <div class="col-md-6 form-group">
+                    <select class="form-control" name="ride" >
+                        <option value="" disabled selected>Select ride</option>
+                        {% for ride in data %}
+                        <option name="{{ data.index(ride) }}" value="{{ data.index(ride) }}">{{
+                            ride
+                        }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+        </div>
+    </div>
+</div>
 
 {% endblock content %}
