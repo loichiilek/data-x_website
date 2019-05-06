@@ -1,7 +1,7 @@
 from datax_website import app
 from flask import render_template, url_for, request, redirect, jsonify
 
-rides = [
+rides_and_playgrounds = [
     "'It's a small world'",
     "A Pirate's Adventure - Treasures of the Seven Seas",
     "Astro Orbiter",
@@ -46,6 +46,38 @@ rides = [
     "Walt Disney's Enchanted Tiki Room"
 ]
 
+rides = [
+    "A Pirate's Adventure - Treasures of the Seven Seas",
+    "Astro Orbiter",
+    "Big Thunder Mountain Railroad",
+    "Buzz Lightyear's Space Ranger Spin",
+    "Country Bear Jamboree",
+    "Dumbo the Flying Elephant",
+    "Enchanted Tales with Belle",
+    "Haunted Mansion",
+    "It's A Small World",
+    "Jungle Cruise",
+    "Liberty Square Riverboat",
+    "Mad Tea Party",
+    "Mickey's PhilharMagic",
+    "Monsters, Inc. Laugh Floor",
+    "Peter Pan's Flight",
+    "Pirates of the Caribbean",
+    "Prince Charming Regal Carrousel",
+    "Seven Dwarfs Mine Train",
+    "Space Mountain",
+    "Splash Mountain",
+    "The Barnstormer",
+    "The Hall of Presidents",
+    "The Magic Carpets of Aladdin",
+    "The Many Adventures of Winnie the Pooh",
+    "Tomorrowland Speedway",
+    "Tomorrowland Transit Authority PeopleMover",
+    "Under the Sea - Journey of The Little Mermaid",
+    "Walt Disney's Carousel of Progress",
+    "Walt Disney's Enchanted Tiki Room",
+]
+
 
 def query_api(datetime, ride, fastpass):
     import json
@@ -55,11 +87,10 @@ def query_api(datetime, ride, fastpass):
     from dateutil import parser
     import time
 
-    header = {'Content-Type': 'application/json', 
-                    'Accept': 'application/json'}
+    header = {"Content-Type": "application/json", "Accept": "application/json"}
 
     # 42 Rides
-    message_array = np.zeros(42, dtype=np.int) 
+    message_array = np.zeros(42, dtype=np.int)
     # Set one hot
     message_array[int(ride)] = 1
     # Insert WaltDisney Land
@@ -68,7 +99,6 @@ def query_api(datetime, ride, fastpass):
     message_array = np.append(message_array, 1)
     # Insert FastPass+
     message_array = np.append(message_array, int(fastpass))
-
 
     dt = parser.parse(datetime)
     # Minute of day
@@ -95,67 +125,71 @@ def query_api(datetime, ride, fastpass):
     message_array = np.append(message_array, 0)
 
     # format the message
-    print(message_array.reshape(1,-1).tolist())
+    print(message_array.reshape(1, -1).tolist())
 
-    
-    send_test = message_array.reshape(1,-1).tolist()
+    send_test = message_array.reshape(1, -1).tolist()
     json_file = "file.json"
     json_data = json.dumps(send_test)
     print(json_data)
-    
-    resp = requests.post("http://35.236.127.51:5000/",
-                        data = json_data,
-                        headers= header)
-    
-    return resp.json()
 
+    resp = requests.post("http://35.236.127.51:5000/", data=json_data, headers=header)
+
+    return resp.json()
 
 
 @app.route("/")
 @app.route("/home")
 def home():
 
-    return render_template('home.html', data = rides)
+    return render_template("home.html", data=rides)
 
 
 @app.route("/schedule")
 def schedule():
 
-    return render_template('schedule.html', data = rides)
+    return render_template("schedule.html", data=rides)
 
 
 @app.route("/ride_statistics")
 def ride_statistics():
 
-    return render_template('ride_statistics.html', data = rides)
+    return render_template("ride_statistics.html", data=rides)
+
+@app.route("/monthly_statistics")
+def monthly_statistics():
+
+    return render_template("monthly_statistics.html", data=rides)
 
 
-@app.route("/query_wait_time", methods=['POST'])
+
+@app.route("/query_wait_time", methods=["POST"])
 def query_wait_time():
-    print("###############################################################################################")
+    print(
+        "###############################################################################################"
+    )
     print(request.method)
     print(request.get_json())
-    datetime = request.get_json().get('datetime')
-    ride = request.get_json().get('ride')
-    fastpass = request.get_json().get('fastpass')
+    datetime = request.get_json().get("datetime")
+    ride = request.get_json().get("ride")
+    fastpass = request.get_json().get("fastpass")
 
     query_response = str(query_api(datetime, ride, fastpass))
     print("Query Api Response: " + query_response)
 
-    print("###############################################################################################")
+    print(
+        "###############################################################################################"
+    )
     return query_response
 
 
 @app.route("/query/<genre>")
 def query(genre):
-    if genre == "Haunted":
-        return jsonify({'rides': ['1', '11', '32', '21']})
-    if genre == "4D":
-        return jsonify({'rides': ['5', '8', '12', '19']})
+    if genre == "Interactive":
+        return jsonify({"rides": ["26", "6", "0", "3"]})
+    if genre == "Slow":
+        return jsonify({"rides": ["15", "16", "24", "25", "27", "22", "23", "14", "10", "9", "1", "8", "5"]})
     if genre == "Thrill":
-        return jsonify({'rides': ['17', '29', '16', '11']})
+        return jsonify({"rides": ["17", "2", "18", "19", "7", "20", "11"]})
     if genre == "Show":
-        return jsonify({'rides': ['20', '19', '26', '10']})
-
-
+        return jsonify({"rides": ["28", "21", "4", "12", "13"]})
 
