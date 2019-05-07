@@ -1,6 +1,6 @@
 {% extends "layout.html" %} {% block content %}
 
-<div class="container" id="main">
+<div class="container" id="home">
     <div class="container shadow form" id="ride-query">
         <form method="post" id="query-form">
             <div class="row">
@@ -77,13 +77,44 @@
     </div>
 
     <div class="container information">
-        <h3>How does SmartQ work?</h3>
-        <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit omnis
-            nemo repellendus itaque dolores excepturi distinctio provident
-            placeat obcaecati maiores, veniam adipisci, exercitationem amet
-            quas. Atque iure aliquam perferendis dicta!
-        </p>
+        <h3>Take a look at what you can do with SmartQ:</h3>
+        <h5 class="module" style="text-align: left">Choosing dates for your vacation:</h5>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-xs-4" style="text-align: center">
+                <img class="img-fluid" src="/static/img/Icon_month.png" alt=""/>
+                <p>Select your desired month for vacation</p>
+            </div>
+            <div class="col-lg-4 col-md-4 col-xs-4" style="text-align: center">
+                <img class="img-fluid" src="/static/img/Icon_graph.png" alt=""/>
+                <p>SmartQ provides you with average wait times across the month</p>
+            </div>
+            <div class="col-lg-4 col-md-4 col-xs-4" style="text-align: center">
+                <img class="img-fluid" src="/static/img/Icon_selectDates.png" alt=""/>
+                <p>Choose dates that suits you the most</p>
+            </div>  
+        </div> 
+        <h5 class="module" style="text-align: left">Ride itinerary scheduling:</h5>
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-xs-3" style="text-align: center">
+                <img class="img-fluid" src="/static/img/Icon_dates.png" alt=""/>
+                <p>Key in the dates for your vacation, the parks you would like to visit, and the hours of visitation</p>
+            </div>
+            <div class="col-lg-3 col-md-3 col-xs-3" style="text-align: center">
+                <img class="img-fluid" src="/static/img/Icon_parkSelect.png" alt=""/>
+                <p>Choose your desired park to go on your desired dates based on crowd levels</p>
+            </div>
+            <div class="col-lg-3 col-md-3 col-xs-3" style="text-align: center">
+                <img class="img-fluid" src="/static/img/Icon_rideSelect.png" alt=""/>
+                <p>Choose the rides and events that you are interested in going for</p>
+            </div>  
+            <div class="col-lg-3 col-md-3 col-xs-3" style="text-align: center">
+                <img class="img-fluid" src="/static/img/Icon_schedule.png" alt=""/>
+                <p>Sit back, relax and let SmartQ create an optimal schedule for you!</p>
+            </div>  
+        </div>        
+        <div class="getStartedButton">
+        <a href="/schedule" class="btn btn-info btn-lg" role="button">Get Started</a>
+        </div>
     </div>
 
     <div class="container testimonial">

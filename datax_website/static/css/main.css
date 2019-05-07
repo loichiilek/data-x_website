@@ -15,7 +15,7 @@ body {
 
 .container.result > h3 {
     text-align: center;
-    color: #52959e;
+    color: #2B81A5;
     margin: 0;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -38,18 +38,45 @@ body {
 
 .container.information > h3 {
     text-align: center;
-    color: #52959e;
+    color: #2B81A5;
     margin: 0;
     padding-top: 10px;
     padding-bottom: 10px;
     font-weight: 700;
 }
 
+.container.information > h5 {
+    text-align: left;
+    color: #2B81A5;
+    margin: 0;
+    padding-top: 50px;
+    padding-bottom: 15px;
+}
+
+.container.information > .row{
+    margin-top:30px;
+}
+.container.information > .row > div >img {
+    height: 90px;
+}
+
 .container.information > p {
     text-align: center;
     padding-bottom: 10px;
 }
+.getStartedButton{
+    text-align: center;
+    margin: 5% 0 3% 0;
+}
+.btn.btn-info{
+    text-align: center;
+    background-color:#03B3D7;
+    border:0px;
+}
 
+.btn.btn-info:hover{
+    background-color:rgba(3, 179, 215, 0.65);
+}
 /* Ride-Statistics */
 .container.ride-statistics {
     margin: auto;
@@ -57,7 +84,7 @@ body {
 
 .container.ride-statistics > h3 {
     /* text-align: center; */
-    color: #52959e;
+    color: #2B81A5;
     padding-bottom: 10px;
     margin: 15px auto 15px auto;
     font-weight: 700;
@@ -75,7 +102,7 @@ body {
 
 .container.genre-selection > h3 {
     /* text-align: center; */
-    color: #52959e;
+    color: #2B81A5;
     padding-bottom: 10px;
     margin: 15px auto 15px auto;
     font-weight: 700;
@@ -88,12 +115,12 @@ body {
 
 /* Testimonial Stuff */
 .container.testimonial {
-    margin-top: 100px;
+    margin-top: 50px;
 }
 
 .container.testimonial > h3 {
     text-align: center;
-    color: #52959e;
+    color: #2B81A5;
     margin: 15px auto 0 auto;
     padding-top: 20px;
     font-weight: 700;
@@ -120,8 +147,17 @@ body {
 .container#main {
     background: #fff;
     height: auto;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 13%;
+    border-radius: 10px;
 }
 
+.container#home{
+    background: #fff;
+    height: auto;
+}
 .container#ride-query {
     position: relative;
     padding: 15px 10px 15px 10px;
@@ -146,18 +182,18 @@ form > .row > .col-md-4 {
 
 /* Btns */
 .btn-primary {
-    background-color: #52959e;
-    border-color: #52959e;
+    background-color: #03B3D7;
+    border-color: #03B3D7;
 }
 
 .btn-primary:hover {
-    background-color: #52959e;
-    border-color: #52959e;
+    background-color: #03B3D7;
+    border-color: #03B3D7;
 }
 
 .btn-primary:focus {
-    background-color: #52959e;
-    border-color: #52959e;
+    background-color: #2B81A5;
+    border-color: #2B81A5;
 }
 
 .btn-primary:active {
@@ -166,20 +202,20 @@ form > .row > .col-md-4 {
 }
 
 .btn-outline-primary {
-    color: #52959e;
-    border-color: #52959e;
+    color: #2B81A5;
+    border-color: #2B81A5;
 }
 
 .btn-outline-primary:hover {
     color: white;
-    background-color: #52959e !important;
+    background-color: #2B81A5 !important;
     border-color: #337ab7 !important;
 }
 
 .btn-outline-primary::selection {
     color: white;
-    background-color: #52959e !important;
-    border-color: #52959e !important;
+    background-color: #2B81A5 !important;
+    border-color: #2B81A5 !important;
 }
 
 /* Others */
@@ -224,6 +260,13 @@ form > .row > .col-md-4 {
     animation-duration: 0.4s;
 }
 
+/*Plain header*/
+#header.container-fluid{
+    padding-bottom: 40px;
+    background-color: #03B3D7;
+    height: 40%;
+}
+
 /* Calender */
 section.month {
     overflow: hidden;
@@ -237,7 +280,7 @@ section.month {
 
 section > h3 {
     text-align: center;
-    color: #52959e;
+    color: #2B81A5;
     margin: 15px auto 0 auto;
     padding-top: 20px;
     font-weight: 700;
@@ -245,7 +288,7 @@ section > h3 {
 
 section > h3 > .btn {
     text-align: center;
-    color: #52959e;
+    color: #2B81A5;
     font-size: 28px;
 }
 section > h3 > .btn :hover {
@@ -268,7 +311,7 @@ article span {
 }
 article b {
     font: 600 16px/45px "Open Sans";
-    color: #52959e;
+    color: #2B81A5;
 }
 article span {
     font: 300 19px/45px "Open Sans";
