@@ -71,6 +71,10 @@ body {
     text-align: center;
     background-color:#03B3D7;
 }
+
+.btn.btn-info:hover{
+    background-color:rgba(3, 179, 215, 0.65);
+}
 /* Ride-Statistics */
 .container.ride-statistics {
     margin: auto;
