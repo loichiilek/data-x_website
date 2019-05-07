@@ -1,4 +1,174 @@
 {% extends "layout.html" %} {% block content %}
+<div class="container" id="main">
+    <div class="container monthly-statistics">
+        <section class="month">
+            <h3 id="calender-header">
+                <i class="fa fa-angle-left btn left-month"></i>
+                {{ cal["month"] }} {{ cal["year"] }}
+                <i class="fa fa-angle-right btn right-month"></i>
+            </h3>
 
+            <article>
+                <div class="days">
+                    <b>MO</b>
+                    <b>TU</b>
+                    <b>WE</b>
+                    <b>TH</b>
+                    <b>FR</b>
+                    <b>SA</b>
+                    <b>SU</b>
+                </div>
+                <div class="dates">
+                    {% for date in cal['inactive_before_dates'] %}
+                    <span class="calender-date disable">{{ date }}</span>
+                    {% endfor %} {% for date in cal['dates'] %}
+                    <span class="calender-date in-month">{{ date }}</span>
+                    <div class="overlay">
+                        <div class="text">Hello World</div>
+                    </div>
+                    {% endfor %} {% for date in cal['inactive_after_dates'] %}
+                    <span class="calender-date disable">{{ date }}</span>
+                    {% endfor %}
+                </div>
+            </article>
+        </section>
+    </div>
+    <script>
+        var pyear = "{{cal['pyear']}}";
+        var year = "{{cal['year']}}";
+        var nyear = "{{cal['nyear']}}";
+        var previous_month = "{{cal['previous_month']}}";
+        var month = "{{cal['month']}}";
+        var next_month = "{{cal['next_month']}}";
+
+        $(".left-month").click(function() {
+            fetch("/query_month/" + previous_month + "/" + pyear).then(function(
+                response
+            ) {
+                response.json().then(function(data) {
+                    $(".calender-date").remove();
+                    $("#calender-header")
+                        .contents()
+                        .filter(function() {
+                            return this.nodeType == 3;
+                        })
+                        .remove();
+                    $(".left-month").after(previous_month + " " + pyear);
+                    for (let date of data.inactive_before_dates) {
+                        $(".dates").append(
+                            "<span class='calender-date disable'>" +
+                                date +
+                                "</span>"
+                        );
+                    }
+                    for (let date of data.dates) {
+                        $(".dates").append(
+                            "<span class='calender-date in-month'>" +
+                                date +
+                                "</span>"
+                        );
+                    }
+                    for (let date of data.inactive_after_dates) {
+                        $(".dates").append(
+                            "<span class='calender-date disable'>" +
+                                date +
+                                "</span>"
+                        );
+                    }
+                    previous_month = data.previous_month;
+                    month = data.month;
+                    next_month = data.next_month;
+                    pyear = data.pyear;
+                    year = data.year;
+                    nyear = data.nyear;
+
+                    month_api_call(month, year);
+                });
+            });
+        });
+        $(".right-month").click(function() {
+            fetch("/query_month/" + next_month + "/" + nyear).then(function(
+                response
+            ) {
+                response.json().then(function(data) {
+                    $(".calender-date").remove();
+                    $("#calender-header")
+                        .contents()
+                        .filter(function() {
+                            return this.nodeType == 3;
+                        })
+                        .remove();
+                    $(".left-month").after(next_month + " " + nyear);
+                    for (let date of data.inactive_before_dates) {
+                        $(".dates").append(
+                            "<span class='calender-date disable'>" +
+                                date +
+                                "</span>"
+                        );
+                    }
+                    for (let date of data.dates) {
+                        $(".dates").append(
+                            "<span class='calender-date in-month'>" +
+                                date +
+                                "</span>"
+                        );
+                    }
+                    for (let date of data.inactive_after_dates) {
+                        $(".dates").append(
+                            "<span class='calender-date disable'>" +
+                                date +
+                                "</span>"
+                        );
+                    }
+                    previous_month = data.previous_month;
+                    month = data.month;
+                    next_month = data.next_month;
+                    pyear = data.pyear;
+                    year = data.year;
+                    nyear = data.nyear;
+
+                    month_api_call(month, year);
+                });
+            });
+        });
+
+        function month_api_call(month1, year1) {
+            fetch("/month_api_call/" + month1 + "/" + year1).then(function(
+                response
+            ) {
+                response.json().then(function(data) {
+                    console.log(data.good_dates);
+                    $(".in-month").each(function(index) {
+                        if (
+                            data.good_dates.includes(parseInt($(this).text()))
+                        ) {
+                            $(this).addClass("good-dates");
+                        }
+                        if (data.bad_dates.includes(parseInt($(this).text()))) {
+                            $(this).addClass("bad-dates");
+                        }
+
+                        $(this).hover(
+                            function() {
+                                var $this = $(this); // caching $(this)
+                                $this.data('defaultText', $this.text());
+                                var wait_time = data.date_wait_time[parseInt($(this).text())];
+                                $this.text(wait_time);
+                            },
+                            function() {
+                                var $this = $(this); // caching $(this)
+                                $this.text($this.data('defaultText'));
+                            }
+                        )
+                    });
+                });
+            });
+        }
+
+        $(function() {
+            month_api_call(month, year);
+        });
+    </script>
+</div>
 
 {% endblock content %}

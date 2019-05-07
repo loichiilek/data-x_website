@@ -78,42 +78,140 @@
 
     <div class="container information">
         <h3>Take a look at what you can do with SmartQ:</h3>
-        <h5 class="module" style="text-align: left">Choosing dates for your vacation:</h5>
-        <div class="row">
-            <div class="col-lg-4 col-md-4 col-xs-4" style="text-align: center">
-                <img class="img-fluid" src="/static/img/Icon_month.png" alt=""/>
-                <p>Select your desired month for vacation</p>
+        <h5 style="text-align: left; font-weight: 700;">
+            Choosing dates for your vacation:
+        </h5>
+        <div class="row" style="text-align: center">
+            <div class="col-lg-6 col-md-6 col-xs-6">
+                <div class="row" style="text-align: center; margin-top: 50px;">
+                    <div class="col-lg-6 col-md-6 col-xs-6">
+                        <img
+                            class="img-fluid info-image"
+                            src="/static/img/Icon_month.png"
+                            alt=""
+                        />
+                        <p class="info-test">Select your desired month for vacation</p>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-xs-6">
+                        <img
+                            class="img-fluid info-image"
+                            src="/static/img/Icon_graph.png"
+                            alt=""
+                        />
+                        <p class="info-test">
+                            SmartQ provides you with average wait times across
+                            the month
+                        </p>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-3"></div>
+                    <div class="col-lg-6 col-md-6 col-xs-6">
+                        <img
+                            class="img-fluid info-image"
+                            src="/static/img/Icon_selectDates.png"
+                            alt=""
+                        />
+                        <p class="info-test">Choose dates that suits you the most</p>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-xs-3"></div>
+                </div>
             </div>
-            <div class="col-lg-4 col-md-4 col-xs-4" style="text-align: center">
-                <img class="img-fluid" src="/static/img/Icon_graph.png" alt=""/>
-                <p>SmartQ provides you with average wait times across the month</p>
+
+            <div class="col-lg-6 col-md-6 col-xs-6">
+                <div class="container monthly-statistics">
+                    <section class="month">
+                        <h3 id="calender-header">
+                            <i class="fa fa-angle-left btn left-month"></i>
+                            {{ cal["month"] }} {{ cal["year"] }}
+                            <i class="fa fa-angle-right btn right-month"></i>
+                        </h3>
+
+                        <article>
+                            <div class="days">
+                                <b>MO</b>
+                                <b>TU</b>
+                                <b>WE</b>
+                                <b>TH</b>
+                                <b>FR</b>
+                                <b>SA</b>
+                                <b>SU</b>
+                            </div>
+                            <div class="dates">
+                                {% for date in cal['inactive_before_dates'] %}
+                                <span class="calender-date disable">{{
+                                    date
+                                }}</span>
+                                {% endfor %} {% for date in cal['dates'] %}
+                                <span class="calender-date in-month">{{
+                                    date
+                                }}</span>
+                                <div class="overlay">
+                                    <div class="text">Hello World</div>
+                                </div>
+                                {% endfor %} {% for date in
+                                cal['inactive_after_dates'] %}
+                                <span class="calender-date disable">{{
+                                    date
+                                }}</span>
+                                {% endfor %}
+                            </div>
+                        </article>
+                    </section>
+                </div>
             </div>
-            <div class="col-lg-4 col-md-4 col-xs-4" style="text-align: center">
-                <img class="img-fluid" src="/static/img/Icon_selectDates.png" alt=""/>
-                <p>Choose dates that suits you the most</p>
-            </div>  
-        </div> 
-        <h5 class="module" style="text-align: left">Ride itinerary scheduling:</h5>
-        <div class="row">
-            <div class="col-lg-3 col-md-3 col-xs-3" style="text-align: center">
-                <img class="img-fluid" src="/static/img/Icon_dates.png" alt=""/>
-                <p>Key in the dates for your vacation, the parks you would like to visit, and the hours of visitation</p>
+        </div>
+        <h5 class="module" style="text-align: left; font-weight: 700;">
+            Ride itinerary scheduling:
+        </h5>
+        <div class="row" style="margin-top: 50px;">
+            <div class="col-lg-3 col-md-3 col-xs-3 module">
+                <img
+                    class="img-fluid info-image"
+                    src="/static/img/Icon_dates.png"
+                    alt=""
+                />
+                <p class="info-test">
+                    Key in the dates for your vacation, the parks you would like
+                    to visit, and the hours of visitation
+                </p>
             </div>
-            <div class="col-lg-3 col-md-3 col-xs-3" style="text-align: center">
-                <img class="img-fluid" src="/static/img/Icon_parkSelect.png" alt=""/>
-                <p>Choose your desired park to go on your desired dates based on crowd levels</p>
+            <div class="col-lg-3 col-md-3 col-xs-3 module">
+                <img
+                    class="img-fluid info-image"
+                    src="/static/img/Icon_parkSelect.png"
+                    alt=""
+                />
+                <p class="info-test">
+                    Choose your desired park to go on your desired dates based
+                    on crowd levels
+                </p>
             </div>
-            <div class="col-lg-3 col-md-3 col-xs-3" style="text-align: center">
-                <img class="img-fluid" src="/static/img/Icon_rideSelect.png" alt=""/>
-                <p>Choose the rides and events that you are interested in going for</p>
-            </div>  
-            <div class="col-lg-3 col-md-3 col-xs-3" style="text-align: center">
-                <img class="img-fluid" src="/static/img/Icon_schedule.png" alt=""/>
-                <p>Sit back, relax and let SmartQ create an optimal schedule for you!</p>
-            </div>  
-        </div>        
-        <div class="getStartedButton">
-        <a href="/schedule" class="btn btn-info btn-lg" role="button">Get Started</a>
+            <div class="col-lg-3 col-md-3 col-xs-3 module">
+                <img
+                    class="img-fluid info-image"
+                    src="/static/img/Icon_rideSelect.png"
+                    alt=""
+                />
+                <p class="info-test">
+                    Choose the rides and events that you are interested in going
+                    for
+                </p>
+            </div>
+            <div class="col-lg-3 col-md-3 col-xs-3 module">
+                <img
+                    class="img-fluid info-image"
+                    src="/static/img/Icon_schedule.png"
+                    alt=""
+                />
+                <p class="info-test">
+                    Sit back, relax and let SmartQ create an optimal schedule
+                    for you!
+                </p>
+            </div>
+        </div>
+        <div class="getStartedButton module">
+            <a href="/schedule" class="btn btn-info btn-lg" role="button"
+                >Get Started</a
+            >
         </div>
     </div>
 
@@ -203,6 +301,13 @@
             });
         });
 
+        allMods.each(function(i, el) {
+            var el = $(el);
+            if (el.visible(true)) {
+                el.addClass("already-visible");
+            }
+        });
+
         function query_function() {
             var datetime = $("input[name='datetime']").val();
             var ride = $("select[name='ride']").val();
@@ -214,7 +319,9 @@
                 fastpass: 1
             });
             $("#container-result").show();
-            $("#wait-time-result").prepend("<img src='/static/img/loading2.gif' width='100px'>");
+            $("#wait-time-result").prepend(
+                "<img src='/static/img/loading2.gif' width='100px'>"
+            );
             console.log(data);
             $.ajax({
                 type: "POST",
@@ -244,6 +351,145 @@
 
         $("#query-button").click(function() {
             query_function();
+        });
+    </script>
+    <script>
+        var pyear = "{{cal['pyear']}}";
+        var year = "{{cal['year']}}";
+        var nyear = "{{cal['nyear']}}";
+        var previous_month = "{{cal['previous_month']}}";
+        var month = "{{cal['month']}}";
+        var next_month = "{{cal['next_month']}}";
+
+        $(".left-month").click(function() {
+            fetch("/query_month/" + previous_month + "/" + pyear).then(function(
+                response
+            ) {
+                response.json().then(function(data) {
+                    $(".calender-date").remove();
+                    $("#calender-header")
+                        .contents()
+                        .filter(function() {
+                            return this.nodeType == 3;
+                        })
+                        .remove();
+                    $(".left-month").after(previous_month + " " + pyear);
+                    for (let date of data.inactive_before_dates) {
+                        $(".dates").append(
+                            "<span class='calender-date disable'>" +
+                                date +
+                                "</span>"
+                        );
+                    }
+                    for (let date of data.dates) {
+                        $(".dates").append(
+                            "<span class='calender-date in-month'>" +
+                                date +
+                                "</span>"
+                        );
+                    }
+                    for (let date of data.inactive_after_dates) {
+                        $(".dates").append(
+                            "<span class='calender-date disable'>" +
+                                date +
+                                "</span>"
+                        );
+                    }
+                    previous_month = data.previous_month;
+                    month = data.month;
+                    next_month = data.next_month;
+                    pyear = data.pyear;
+                    year = data.year;
+                    nyear = data.nyear;
+
+                    month_api_call(month, year);
+                });
+            });
+        });
+        $(".right-month").click(function() {
+            fetch("/query_month/" + next_month + "/" + nyear).then(function(
+                response
+            ) {
+                response.json().then(function(data) {
+                    $(".calender-date").remove();
+                    $("#calender-header")
+                        .contents()
+                        .filter(function() {
+                            return this.nodeType == 3;
+                        })
+                        .remove();
+                    $(".left-month").after(next_month + " " + nyear);
+                    for (let date of data.inactive_before_dates) {
+                        $(".dates").append(
+                            "<span class='calender-date disable'>" +
+                                date +
+                                "</span>"
+                        );
+                    }
+                    for (let date of data.dates) {
+                        $(".dates").append(
+                            "<span class='calender-date in-month'>" +
+                                date +
+                                "</span>"
+                        );
+                    }
+                    for (let date of data.inactive_after_dates) {
+                        $(".dates").append(
+                            "<span class='calender-date disable'>" +
+                                date +
+                                "</span>"
+                        );
+                    }
+                    previous_month = data.previous_month;
+                    month = data.month;
+                    next_month = data.next_month;
+                    pyear = data.pyear;
+                    year = data.year;
+                    nyear = data.nyear;
+
+                    month_api_call(month, year);
+                });
+            });
+        });
+
+        function month_api_call(month1, year1) {
+            fetch("/month_api_call/" + month1 + "/" + year1).then(function(
+                response
+            ) {
+                response.json().then(function(data) {
+                    console.log(data.good_dates);
+                    $(".in-month").each(function(index) {
+                        if (
+                            data.good_dates.includes(parseInt($(this).text()))
+                        ) {
+                            $(this).addClass("good-dates");
+                        }
+                        if (data.bad_dates.includes(parseInt($(this).text()))) {
+                            $(this).addClass("bad-dates");
+                        }
+
+                        $(this).hover(
+                            function() {
+                                var $this = $(this); // caching $(this)
+                                $this.data("defaultText", $this.text());
+                                var wait_time =
+                                    data.date_wait_time[
+                                        parseInt($(this).text())
+                                    ];
+                                $this.text(wait_time);
+                            },
+                            function() {
+                                var $this = $(this); // caching $(this)
+                                $this.text($this.data("defaultText"));
+                            }
+                        );
+                    });
+                });
+            });
+        }
+
+        $(function() {
+            month_api_call(month, year);
         });
     </script>
 </div>

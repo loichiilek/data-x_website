@@ -3,6 +3,12 @@ from flask import render_template, url_for, request, redirect, jsonify
 
 from datetime import datetime
 import calendar
+import json
+import requests
+import pandas as pd
+import numpy as np
+from dateutil import parser
+import time
 
 rides_and_playgrounds = [
     "'It's a small world'",
@@ -46,7 +52,7 @@ rides_and_playgrounds = [
     "Walt Disney World Railroad - Frontierland ",
     "Walt Disney World Railroad - Main Street U.S.A. ",
     "Walt Disney's Carousel of Progress ",
-    "Walt Disney's Enchanted Tiki Room"
+    "Walt Disney's Enchanted Tiki Room",
 ]
 
 rides = [
@@ -83,12 +89,7 @@ rides = [
 
 
 def query_api(datetime, ride, fastpass):
-    import json
-    import requests
-    import pandas as pd
-    import numpy as np
-    from dateutil import parser
-    import time
+
 
     header = {"Content-Type": "application/json", "Accept": "application/json"}
 
@@ -139,16 +140,83 @@ def query_api(datetime, ride, fastpass):
 
     return resp.json()
 
-def prepare_calendar(month = datetime.now().month, year = datetime.now().year):
-    for day in calendar.Calendar().itermonthdates(year, month):
-        print(day)
 
+def prepare_calendar(month=datetime.now().month, year=datetime.now().year):
+    inactive_before_dates = []
+    dates = []
+    inactive_after_dates = []
+    for date in calendar.Calendar().itermonthdates(year, month):
+        if date.year == year:
+            if date.month < month:
+                inactive_before_dates.append(date.day)
+            elif date.month == month:
+                dates.append(date.day)
+            elif date.month > month:
+                inactive_after_dates.append(date.day)
+        elif date.year < year:
+            inactive_before_dates.append(date.day)
+        elif date.year > year:
+            inactive_after_dates.append(date.day)
+    pyear = year
+    nyear = year
+
+    previous_month = (month - 2) % 12 + 1
+    if previous_month == 12:
+        pyear = year - 1 
+
+    next_month = month % 12 + 1
+    if next_month == 1:
+        nyear = year + 1
+
+
+
+    cal = {
+        "pyear": pyear,
+        "year": year,
+        "nyear": nyear,
+        "previous_month": calendar.month_name[previous_month],
+        "month": calendar.month_name[month],
+        "next_month": calendar.month_name[next_month],
+        "inactive_before_dates": inactive_before_dates,
+        "dates": dates,
+        "inactive_after_dates": inactive_after_dates,
+    }
+    return cal
+
+@app.route("/month_api_call/<month>/<year>")
+def month_api_call(month, year):
+    month_stats_url = "http://35.236.127.51:5000/monthlystats"
+    prep_message = {
+        "month" : list(calendar.month_name).index(month),
+        "year" : int(year)
+    }
+
+    json_data = json.dumps(prep_message)
+    header = {"Content-Type": "application/json", "Accept": "application/json"}
+    print(json_data)
+    resp = requests.post(month_stats_url, data=json_data, headers=header)
+    print(resp.json())
+    wait_time_list = resp.json()
+    date_wait_time = {}
+    counter = 1
+    good_dates = []
+    bad_dates = []
+    for wait_time in wait_time_list:
+        date_wait_time[counter] = wait_time
+        counter += 1
+    
+        if wait_time < np.percentile(wait_time_list, 20):
+            good_dates.append(wait_time_list.index(wait_time) + 1)
+        elif wait_time > np.percentile(wait_time_list, 80):
+            bad_dates.append(wait_time_list.index(wait_time) + 1)
+
+    return jsonify({"date_wait_time" : date_wait_time, "good_dates" : good_dates, "bad_dates" : bad_dates})
 
 @app.route("/")
 @app.route("/home")
 def home():
-    prepare_calendar()
-    return render_template("home.html", data=rides)
+    cal = prepare_calendar()
+    return render_template("home.html", data=rides, cal=cal)
 
 
 @app.route("/schedule")
@@ -162,11 +230,11 @@ def ride_statistics():
 
     return render_template("ride_statistics.html", data=rides)
 
+
 @app.route("/monthly_statistics")
 def monthly_statistics():
-
-    return render_template("monthly_statistics.html", data=rides)
-
+    cal = prepare_calendar()
+    return render_template("monthly_statistics.html", cal=cal)
 
 
 @app.route("/query_wait_time", methods=["POST"])
@@ -189,12 +257,50 @@ def query_wait_time():
     return query_response
 
 
+@app.route("/query_month/<month>/<year>")
+def query_month(month, year):
+    print(year)
+    cal = prepare_calendar(list(calendar.month_name).index(month), int(year))
+    print(cal)
+    return jsonify(
+        {
+            "pyear": cal['pyear'],
+            "year": cal['year'],
+            "nyear": cal['nyear'],
+            "previous_month": cal['previous_month'],
+            "month": cal['month'],
+            "next_month": cal['next_month'],
+            "inactive_before_dates": cal['inactive_before_dates'],
+            "dates": cal['dates'],
+            "inactive_after_dates": cal['inactive_after_dates'],
+        }
+    )
+
+
 @app.route("/query/<genre>")
 def query(genre):
     if genre == "Interactive":
         return jsonify({"rides": ["26", "6", "0", "3"]})
     if genre == "Slow":
-        return jsonify({"rides": ["15", "16", "24", "25", "27", "22", "23", "14", "10", "9", "1", "8", "5"]})
+        return jsonify(
+            {
+                "rides": [
+                    "15",
+                    "16",
+                    "24",
+                    "25",
+                    "27",
+                    "22",
+                    "23",
+                    "14",
+                    "10",
+                    "9",
+                    "1",
+                    "8",
+                    "5",
+                ]
+            }
+        )
     if genre == "Thrill":
         return jsonify({"rides": ["17", "2", "18", "19", "7", "20", "11"]})
     if genre == "Show":
