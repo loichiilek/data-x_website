@@ -1,6 +1,9 @@
 from datax_website import app
 from flask import render_template, url_for, request, redirect, jsonify
 
+from datetime import datetime
+import calendar
+
 rides_and_playgrounds = [
     "'It's a small world'",
     "A Pirate's Adventure - Treasures of the Seven Seas",
@@ -136,11 +139,15 @@ def query_api(datetime, ride, fastpass):
 
     return resp.json()
 
+def prepare_calendar(month = datetime.now().month, year = datetime.now().year):
+    for day in calendar.Calendar().itermonthdates(year, month):
+        print(day)
+
 
 @app.route("/")
 @app.route("/home")
 def home():
-
+    prepare_calendar()
     return render_template("home.html", data=rides)
 
 
