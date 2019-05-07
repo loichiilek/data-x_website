@@ -70,6 +70,7 @@ body {
 .btn.btn-info{
     text-align: center;
     background-color:#03B3D7;
+    border:0px;
 }
 
 .btn.btn-info:hover{
