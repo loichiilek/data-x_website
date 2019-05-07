@@ -31,9 +31,9 @@ body {
 .container.information {
     -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
     -moz-animation: fadein 2s; /* Firefox < 16 */
-     -ms-animation: fadein 2s; /* Internet Explorer */
-      -o-animation: fadein 2s; /* Opera < 12.1 */
-         animation: fadein 2s;
+    -ms-animation: fadein 2s; /* Internet Explorer */
+    -o-animation: fadein 2s; /* Opera < 12.1 */
+    animation: fadein 2s;
 }
 
 .container.information > h3 {
@@ -120,8 +120,6 @@ body {
 .container#main {
     background: #fff;
     height: auto;
-
-    
 }
 
 .container#ride-query {
@@ -132,8 +130,6 @@ body {
     background: #f3f3f3;
     border-radius: 5px;
     width: auto;
-
-
 }
 
 .container#ride-query > .row {
@@ -147,8 +143,6 @@ form > .row > .col-md-4 {
 #ride-query > .row > .col-md-4 {
     margin: 5px 0;
 }
-
-
 
 /* Btns */
 .btn-primary {
@@ -220,8 +214,98 @@ form > .row > .col-md-4 {
 
 .jumbotron > img {
     padding: 100px 0 0 0;
+}
 
+.come-in {
+    transform: translateY(150px);
+    animation: come-in 0.6s ease forwards;
+}
+.come-in:nth-child(odd) {
+    animation-duration: 0.4s;
+}
 
+/* Calender */
+section.month {
+    overflow: hidden;
+    display: block;
+    width: 420px;
+    height: auto;
+    background: #fff;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+}
+
+section > h3 {
+    text-align: center;
+    color: #52959e;
+    margin: 15px auto 0 auto;
+    padding-top: 20px;
+    font-weight: 700;
+}
+
+section > h3 > .btn {
+    text-align: center;
+    color: #52959e;
+    font-size: 28px;
+}
+section > h3 > .btn :hover {
+    font-style: italic;
+    color: #fff;
+    font-size: 35px;
+}
+
+article {
+    padding: 6px 0 25px 25px;
+}
+article b,
+article span {
+    display: block;
+    float: left;
+    width: 45px;
+    height: 45px;
+    margin: 4px;
+    text-align: center;
+}
+article b {
+    font: 600 16px/45px "Open Sans";
+    color: #52959e;
+}
+article span {
+    font: 300 19px/45px "Open Sans";
+    color: #222;
+    box-shadow: inset 0 0 1px 1px #d9dce5;
+    border-radius: 2px;
+    cursor: pointer;
+}
+article span.disable {
+    color: #b6bacc;
+    box-shadow: inset 0 0 1px 1px #f3f4f7;
+}
+article span:not(.disable):hover {
+    background: #cdd0dd;
+    box-shadow: inset 0 0 1px 1px #d9dce5, 0 1px 3px -1px #cdd0dd;
+}
+/* article span:not(.disable):active {
+    background: #b9becf;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.18), 0 0 0 #cdd0dd;
+} */
+/* article span.active,
+article span.active:hover,
+article span.active:active {
+    color: #fff;
+    box-shadow: inset 0 0 1px 1px #ff8263, 0 1px 3px -1px #ff8263;
+    background: #ff8263;
+} */
+article div {
+    display: block;
+    overflow: hidden;
+    clear: both;
+}
+
+@keyframes come-in {
+    to {
+        transform: translateY(0);
+    }
 }
 
 @media (min-width: 768px) {
@@ -254,24 +338,40 @@ form > .row > .col-md-4 {
     }
 }
 @keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 /* Firefox < 16 */
 @-moz-keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 /* Safari, Chrome and Opera > 12.1 */
 @-webkit-keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 /* Internet Explorer */
 @-ms-keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }

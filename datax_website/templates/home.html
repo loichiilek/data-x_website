@@ -1,7 +1,5 @@
 {% extends "layout.html" %} {% block content %}
 
-
-
 <div class="container" id="main">
     <div class="container shadow form" id="ride-query">
         <form method="post" id="query-form">
@@ -19,12 +17,14 @@
                     />
                 </div>
                 <div class="col-md-4 form-group">
-                    <select class="form-control" name="ride" >
+                    <select class="form-control" name="ride">
                         <option value="" disabled selected>Select ride</option>
                         {% for ride in data %}
-                        <option name="{{ data.index(ride) }}" value="{{ data.index(ride) }}">{{
-                            ride
-                        }}</option>
+                        <option
+                            name="{{ data.index(ride) }}"
+                            value="{{ data.index(ride) }}"
+                            >{{ ride }}</option
+                        >
                         {% endfor %}
                     </select>
                 </div>
@@ -71,12 +71,10 @@
             </div>
         </form>
         <div id="container-result" class="container result">
-            <h3>Waiting time for ride: </h3>
+            <h3>Waiting time for ride:</h3>
             <p id="wait-time-result"></p>
         </div>
     </div>
-
-
 
     <div class="container information">
         <h3>How does SmartQ work?</h3>
@@ -89,11 +87,11 @@
     </div>
 
     <div class="container testimonial">
-        <h3>Testimonial</h3>
-        <p>Hear what our users have to say!</p>
+        <h3 class="module">Testimonial</h3>
+        <p class="module">Hear what our users have to say!</p>
         <div class="row">
             <div
-                class="col-lg-4 col-md-4 col-xs-4 thumb"
+                class="col-lg-4 col-md-4 col-xs-4 thumb module"
                 style="text-align: center"
             >
                 <img
@@ -107,7 +105,7 @@
                 </p>
             </div>
             <div
-                class="col-lg-4 col-md-4 col-xs-4 thumb"
+                class="col-lg-4 col-md-4 col-xs-4 thumb module"
                 style="text-align: center"
             >
                 <img
@@ -116,11 +114,13 @@
                     alt=""
                 />
                 <p>
-                    With SmartQ, I was able to meet my favourite Disney's princess. I even found the time to take pictures with little mermaid!
+                    With SmartQ, I was able to meet my favourite Disney's
+                    princess. I even found the time to take pictures with little
+                    mermaid!
                 </p>
             </div>
             <div
-                class="col-lg-4 col-md-4 col-xs-4 thumb"
+                class="col-lg-4 col-md-4 col-xs-4 thumb module"
                 style="text-align: center"
             >
                 <img
@@ -129,34 +129,76 @@
                     alt=""
                 />
                 <p>
-                    Whenever I see people queuing up, I just feel so lucky I have SmartQ.
+                    Whenever I see people queuing up, I just feel so lucky I
+                    have SmartQ.
                 </p>
             </div>
         </div>
     </div>
 
     <script type="text/javascript">
+        (function($) {
+            /**
+             * Copyright 2012, Digital Fusion
+             * Licensed under the MIT license.
+             * http://teamdf.com/jquery-plugins/license/
+             *
+             * @author Sam Sehnert
+             * @desc A small plugin that checks whether elements are within
+             *     the user visible viewport of a web browser.
+             *     only accounts for vertical position, not horizontal.
+             */
+
+            $.fn.visible = function(partial) {
+                var $t = $(this),
+                    $w = $(window),
+                    viewTop = $w.scrollTop(),
+                    viewBottom = viewTop + $w.height(),
+                    _top = $t.offset().top,
+                    _bottom = _top + $t.height(),
+                    compareTop = partial === true ? _bottom : _top,
+                    compareBottom = partial === true ? _top : _bottom;
+
+                return compareBottom <= viewBottom && compareTop >= viewTop;
+            };
+        })(jQuery);
+
+        $(window).scroll(function(event) {
+            $(".module").each(function(i, el) {
+                var el = $(el);
+                if (el.visible(true)) {
+                    el.addClass("come-in");
+                }
+            });
+        });
+
         function query_function() {
-            
             var datetime = $("input[name='datetime']").val();
             var ride = $("select[name='ride']").val();
             //var fastpass = $("select[name='fastpass']").val();
 
-            var data = JSON.stringify({"datetime": datetime, "ride": ride, "fastpass": 1});
-            
-            console.log(data)
+            var data = JSON.stringify({
+                datetime: datetime,
+                ride: ride,
+                fastpass: 1
+            });
+            $("#container-result").show();
+            $("#wait-time-result").prepend("<img src='/static/img/loading2.gif' width='100px'>");
+            console.log(data);
             $.ajax({
                 type: "POST",
                 url: "/query_wait_time",
                 data: data,
                 headers: {
-                    'Content-Type': 'application/json'
+                    "Content-Type": "application/json"
                 },
                 success: function(result) {
-                    var selector = "option[name='" + ride + "'][value='" + ride + "']";
-                    console.log(selector)
-                    var text_result = $(selector).text() + ": " + result + " minutes";
-                    $('#wait-time-result').text(text_result);
+                    var selector =
+                        "option[name='" + ride + "'][value='" + ride + "']";
+                    console.log(selector);
+                    var text_result =
+                        $(selector).text() + ": " + result + " minutes";
+                    $("#wait-time-result").text(text_result);
                     $("#container-result").show();
                 },
                 error: function(result) {
@@ -165,14 +207,13 @@
             });
         }
 
-       
         $(function() {
             $("option[name='0'][value='0']").hide();
         });
 
-        $("#query-button").click(function(){ query_function(); });
+        $("#query-button").click(function() {
+            query_function();
+        });
     </script>
-
-    
 </div>
 {% endblock content %}
