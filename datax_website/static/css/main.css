@@ -147,6 +147,12 @@ body {
 .container#main {
     background: #fff;
     height: auto;
+    z-index:999;
+    position:absolute;
+    left:50%;
+    transform: translateX(-50%);
+    top:13%;
+    border-radius:10px;
 }
 
 .container#ride-query {
@@ -173,13 +179,13 @@ form > .row > .col-md-4 {
 
 /* Btns */
 .btn-primary {
-    background-color: #2B81A5;
-    border-color: #2B81A5;
+    background-color: #03B3D7;
+    border-color: #03B3D7;
 }
 
 .btn-primary:hover {
-    background-color: #2B81A5;
-    border-color: #2B81A5;
+    background-color: #03B3D7;
+    border-color: #03B3D7;
 }
 
 .btn-primary:focus {
@@ -249,6 +255,12 @@ form > .row > .col-md-4 {
 }
 .come-in:nth-child(odd) {
     animation-duration: 0.4s;
+}
+
+.container-fluid.header{
+    padding-bottom: 40px;
+    background-color: #03B3D7;
+    height: 40%;
 }
 
 /* Calender */
