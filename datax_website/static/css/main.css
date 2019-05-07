@@ -64,7 +64,9 @@ body {
     text-align: center;
     padding-bottom: 10px;
 }
-
+.btn.btn-info{
+    background-color:#2B81A5;
+}
 /* Ride-Statistics */
 .container.ride-statistics {
     margin: auto;
