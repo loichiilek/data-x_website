@@ -49,12 +49,12 @@ body {
     text-align: left;
     color: #2B81A5;
     margin: 0;
-    padding-top: 15px;
-    padding-bottom: 30px;
+    padding-top: 30px;
+    padding-bottom: 20px;
 }
 
 .container.information > .row{
-    margin-top:40px;
+    margin-top:30px;
 }
 .container.information > .row > div >img {
     height: 90px;
