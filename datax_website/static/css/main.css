@@ -154,6 +154,10 @@ body {
     border-radius: 10px;
 }
 
+.container#home{
+    background: #fff;
+    height: auto;
+}
 .container#ride-query {
     position: relative;
     padding: 15px 10px 15px 10px;
