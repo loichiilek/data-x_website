@@ -251,6 +251,11 @@ form > .row > .col-md-4 {
     animation-duration: 0.4s;
 }
 
+.container-fluid#header{
+    padding-bottom: 40px;
+    background-color: #03B3D7;
+    height: 40%;
+}
 /* Calender */
 section.month {
     overflow: hidden;
