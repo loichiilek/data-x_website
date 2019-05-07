@@ -53,7 +53,7 @@ body {
     padding-bottom: 15px;
 }
 
-.container.information > div >img {
+.container.information > .row > div >img {
     width: 60%;
 }
 
