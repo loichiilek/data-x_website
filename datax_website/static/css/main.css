@@ -147,6 +147,11 @@ body {
 .container#main {
     background: #fff;
     height: auto;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 13%;
+    border-radius: 10px;
 }
 
 .container#ride-query {
