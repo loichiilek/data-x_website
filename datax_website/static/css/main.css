@@ -252,13 +252,11 @@ form > .row > .col-md-4 {
 }
 
 /*Plain header*/
-container-fluid#header{
+#header.container-fluid{
     padding-bottom: 40px;
     background-color: #03B3D7;
     height: 40%;
 }
-
-.container
 
 /* Calender */
 section.month {
