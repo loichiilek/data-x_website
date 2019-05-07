@@ -64,6 +64,9 @@ body {
     text-align: center;
     padding-bottom: 10px;
 }
+.getStartedButton{
+    text-align: center;
+}
 .btn.btn-info{
     text-align: center;
     background-color:#03B3D7;
