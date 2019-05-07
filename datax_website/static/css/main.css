@@ -147,12 +147,6 @@ body {
 .container#main {
     background: #fff;
     height: auto;
-    z-index:999;
-    position:absolute;
-    left:50%;
-    transform: translateX(-50%);
-    top:13%;
-    border-radius:10px;
 }
 
 .container#ride-query {
@@ -255,12 +249,6 @@ form > .row > .col-md-4 {
 }
 .come-in:nth-child(odd) {
     animation-duration: 0.4s;
-}
-
-.container-fluid.header{
-    padding-bottom: 40px;
-    background-color: #03B3D7;
-    height: 40%;
 }
 
 /* Calender */
