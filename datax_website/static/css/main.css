@@ -287,7 +287,7 @@ form > .row > .col-md-4 {
 section.month {
     overflow: hidden;
     display: block;
-    width: 420px;
+    width: 285px;
     height: auto;
     background: #fff;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
@@ -320,17 +320,17 @@ article b,
 article span {
     display: block;
     float: left;
-    width: 45px;
-    height: 45px;
+    width: 25px;
+    height: 25px;
     margin: 4px;
     text-align: center;
 }
 article b {
-    font: 600 16px/45px "Open Sans";
+    font: 600 14px/45px "Open Sans";
     color: #2B81A5;
 }
 article span {
-    font: 300 19px/45px "Open Sans";
+    font: 300 15px/30px "Open Sans";
     color: #222;
     box-shadow: inset 0 0 1px 1px #ecce97;
     border-radius: 2px;
@@ -407,6 +407,36 @@ article div {
     .container#main {
         margin-top: -410px;
     }
+    section.month {
+        overflow: hidden;
+        display: block;
+        width: 420px;
+        height: auto;
+        background: #fff;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 5px;
+    }
+    
+    article b,
+    article span {
+        display: block;
+        float: left;
+        width: 45px;
+        height: 45px;
+        margin: 4px;
+        text-align: center;
+    }
+
+    article b {
+        font: 600 16px/45px "Open Sans";
+        color: #2B81A5;
+    }
+    article span {
+        font: 300 19px/45px "Open Sans";
+        color: #222;
+        box-shadow: inset 0 0 1px 1px #ecce97;
+        border-radius: 2px;
+        cursor: pointer;
 }
 
 @media (min-width: 992px) {
