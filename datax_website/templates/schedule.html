@@ -36,7 +36,7 @@
                     });
                 });
             </script>
-            <div class="col-sm-3">
+            <div class="col-sm-6 col-md-3">
                 <div class="pretty p-icon p-curve p-jelly">
                     <input
                         type="checkbox"
@@ -51,7 +51,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-6 col-md-3">
                 <div class="pretty p-icon p-curve p-jelly">
                     <input type="checkbox" value="Magic" id="magic-checkbox" />
                     <div class="state p-primary">
@@ -155,21 +155,6 @@
                     </tr>
                 </thead>
                 <tbody id="table-body">
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                    </tr>
                 </tbody>
             </table>
         </div>
@@ -272,12 +257,11 @@
                 $("table").show();
                 $("#loading-image").remove();
                 for (var key in result) {
-                    console.log(result[key])
-                    console.log(key)
+                    var order = parseInt(key) + 1
                     console.log(result[key].ride_name)
-                    console.log(result[key].datetime)
-                    $(".schedule-result").append(
-                        "<tr><th scope='row'>"+ key +"</th><td>"+ result[key].ride_name +"</td><td>"+ result[key].datetime +"</td></tr>"
+                    time = result[key].datetime
+                    $("#table-body").append(
+                        "<tr><th scope='row'>"+ order.toString() +"</th><td>"+ result[key].ride_name +"</td><td>"+ time.slice(17, -4) +"</td></tr>"
                     );
                 }
 
