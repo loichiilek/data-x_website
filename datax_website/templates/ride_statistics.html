@@ -1,6 +1,7 @@
 {% extends "layout.html" %} {% block content %}
 
 <div class="container" id="main">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <div class="container ride-statistics">
         <h3>Select Ride</h3>
         <div class="row">
@@ -13,6 +14,7 @@
                     >
                         <input
                             type="text"
+                            name="datetime"
                             class="form-control datetimepicker-input"
                             data-target="#datetimepicker4"
                             placeholder="Select Date of Visit"
@@ -49,7 +51,104 @@
                 </select>
             </div>
         </div>
+        <canvas
+            id="chart"
+            width="900"
+            height="400"
+        ></canvas>
+
+        <button
+            type="button"
+            class="btn btn-primary btn-block"
+            id="query-stats-button"
+        >
+            Compute Ride Statistics
+        </button>
     </div>
+    <script>
+        function query_ride_stats() {
+            var datetime = $("input[name='datetime']").val();
+            var ride = $("select[name='ride']").val();
+
+            console.log(datetime);
+            console.log(ride);
+
+            var data = JSON.stringify({
+                datetime: datetime,
+                ride: ride
+            });
+
+            $.ajax({
+                type: "POST",
+                url: "/query_ride_stats",
+                data: data,
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                success: function(result) {
+                    console.log(result.labels);
+                    console.log(result.values);
+                    plot_graph(result.labels, result.values);
+                },
+                error: function(result) {
+                    alert("Please fill in all the inputs");
+                }
+            });
+        }
+
+        $("#query-stats-button").click(function() {
+            query_ride_stats();
+        });
+
+        function plot_graph(labels, values) {
+            var ctx = document.getElementById("chart");
+            var myChart = new Chart(ctx, {
+                type: "line",
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            borderColor: "rgba(168, 195, 221, 0.9)",
+                            data: values,
+                            backgroundColor: 'rgba(211, 228, 235, 0.5)',
+                        }
+                    ]
+                },
+                options: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: 'Waiting time of ride in the day (in minutes)'
+                    },
+                    scales: {
+                        yAxes: [{
+                            stacked: true
+                        }],
+                        xAxes: [{
+                            ticks: {
+                                autoSkip: true,
+                                maxTicksLimit: 24
+                            }
+                        }],
+
+                    },
+                    elements: {
+                        point:{
+                            pointStyle: 'crossRot',
+                            radius:4,
+                            hoverRadius:8,
+                            borderColor: 'rgba(0,0,0,1)'
+                        },
+                        line: {
+                            tension: 0
+                        }
+                    }
+                }
+            });
+        }
+    </script>
 </div>
 
 {% endblock content %}

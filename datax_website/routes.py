@@ -93,52 +93,24 @@ def query_api(datetime, ride, fastpass):
 
     header = {"Content-Type": "application/json", "Accept": "application/json"}
 
-    # 42 Rides
-    message_array = np.zeros(42, dtype=np.int)
-    # Set one hot
-    message_array[int(ride)] = 1
-    # Insert WaltDisney Land
-    message_array = np.insert(message_array, 0, 1)
-    # Insert RideActive
-    message_array = np.append(message_array, 1)
-    # Insert FastPass+
-    message_array = np.append(message_array, int(fastpass))
+    ride_name = rides[int(ride)]
 
     dt = parser.parse(datetime)
-    # Minute of day
-    message_array = np.append(message_array, dt.minute)
-    print(dt.minute)
-    # Hour of day
-    message_array = np.append(message_array, dt.hour)
-    print(dt.hour)
-    # Day of week
-    message_array = np.append(message_array, dt.weekday())
-    print(dt.weekday())
-    # Day of month
-    message_array = np.append(message_array, dt.day)
-    print(dt.day)
-    # Month of year
-    message_array = np.append(message_array, dt.month)
-    print(dt.month)
     # Unix time
-    message_array = np.append(message_array, int(time.mktime(dt.timetuple())))
-    print(int(time.mktime(dt.timetuple())))
+    unix_time = int(time.mktime(dt.timetuple()))
 
-    # 2 zeroes (federal and school holiday)
-    message_array = np.append(message_array, 0)
-    message_array = np.append(message_array, 0)
-
-    # format the message
-    print(message_array.reshape(1, -1).tolist())
-
-    send_test = message_array.reshape(1, -1).tolist()
-    json_file = "file.json"
-    json_data = json.dumps(send_test)
+    prep_message = {
+        "ride_name" : ride_name,
+        "unix_time" : unix_time
+    }
+    
+    json_data = json.dumps(prep_message)
     print(json_data)
 
     resp = requests.post("http://35.236.127.51:5000/", data=json_data, headers=header)
+    print(resp.json())
 
-    return resp.json()
+    return resp.json()['wait_time']
 
 
 def prepare_calendar(month=datetime.now().month, year=datetime.now().year):
@@ -239,23 +211,45 @@ def monthly_statistics():
 
 @app.route("/query_wait_time", methods=["POST"])
 def query_wait_time():
-    print(
-        "###############################################################################################"
-    )
-    print(request.method)
-    print(request.get_json())
+
     datetime = request.get_json().get("datetime")
     ride = request.get_json().get("ride")
     fastpass = request.get_json().get("fastpass")
 
     query_response = str(query_api(datetime, ride, fastpass))
-    print("Query Api Response: " + query_response)
-
-    print(
-        "###############################################################################################"
-    )
     return query_response
 
+@app.route("/query_ride_stats", methods=["POST"])
+def query_ride_stats():
+
+    datetime = request.get_json().get("datetime")
+    ride = request.get_json().get("ride")
+    dt = parser.parse(datetime)
+
+
+    prep_message = {
+        "day": dt.day,
+        "month": dt.month,
+        "year": dt.year,
+        "ride_name": rides[int(ride)]
+    }
+    header = {"Content-Type": "application/json", "Accept": "application/json"}
+
+    json_data = json.dumps(prep_message)
+    resp = requests.post("http://35.236.127.51:5000/dailyridestats", data=json_data, headers=header)
+    print(resp.json())
+    if resp:
+        labels = list(resp.json()['time_key'])
+        values = list(resp.json()['wait_time_value'])
+        print(labels)
+        print(values)
+        return jsonify({
+            "labels" : labels,
+            "values" : values
+        })
+
+    else:
+        return jsonify({"result": "error"})
 
 @app.route("/query_month/<month>/<year>")
 def query_month(month, year):
@@ -276,6 +270,42 @@ def query_month(month, year):
         }
     )
 
+@app.route("/generate_schedule", methods=["POST"])
+def generate_schedule():
+
+    day = request.get_json().get("day")
+    month = request.get_json().get("month")
+    year = request.get_json().get("year")
+    ride_list = []
+    for ride_num in request.get_json().get("ride_list"):
+        ride_list.append(rides[int(ride_num)])
+    magic_hour_bool = request.get_json().get("magic_hour_bool")
+    festival_bool = request.get_json().get("festival_bool")
+
+    header = {"Content-Type": "application/json", "Accept": "application/json"}
+
+    prep_message = {
+        "day" : int(day),
+        "month" : int(month),
+        "year" : int(year),
+        "ride_list" : ride_list,
+        "magichour" : magic_hour_bool,
+        "festival" : festival_bool
+    }
+    json_data = json.dumps(prep_message)
+    print(json_data)
+    resp = requests.post("http://35.236.127.51:5000/getschedule", data=json_data, headers=header)
+
+    if resp:
+
+        print(resp.json())
+
+        return jsonify(resp.json())
+
+    else:
+        print("###########ERROR###########")
+        print(resp)
+        return jsonify({"result", "error"})
 
 @app.route("/query/<genre>")
 def query(genre):

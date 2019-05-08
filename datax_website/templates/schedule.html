@@ -3,7 +3,6 @@
     <div class="container genre-selection">
         <h3>Customize Your Schedule</h3>
         <div class="row">
-
             <div class="col-sm-6">
                 <div class="form-group">
                     <div
@@ -16,6 +15,7 @@
                             class="form-control datetimepicker-input"
                             data-target="#datetimepicker4"
                             placeholder="Select Date of Visit"
+                            name="datetime"
                         />
                         <div
                             class="input-group-append"
@@ -36,17 +36,28 @@
                     });
                 });
             </script>
-            <div class="col-sm-6">
+            <div class="col-sm-3">
                 <div class="pretty p-icon p-curve p-jelly">
                     <input
-                        class="genre-checkbox"
                         type="checkbox"
                         value="Festival"
+                        id="festival-checkbox"
                     />
                     <div class="state p-primary">
                         <i class="icon fa fa-check-square"></i>
                         <label class="genre-label" name="Slow">
                             Participate In Festivities
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="pretty p-icon p-curve p-jelly">
+                    <input type="checkbox" value="Magic" id="magic-checkbox" />
+                    <div class="state p-primary">
+                        <i class="icon fa fa-check-square"></i>
+                        <label class="genre-label" name="Slow">
+                            Have MagicHours
                         </label>
                     </div>
                 </div>
@@ -107,8 +118,10 @@
                 <div class="col-lg-6 col-md-12 col-sm-12">
                     <div class="pretty p-icon p-curve p-jelly">
                         <input
+                            class="schedule-ride"
                             type="checkbox"
                             id="ride-{{ data.index(ride) }}"
+                            value="{{ data.index(ride) }}"
                         />
                         <div class="state p-primary">
                             <i class="icon fa fa-check-square"></i>
@@ -125,9 +138,41 @@
                 {% endfor %}
             </div>
         </form>
-        <button type="button" class="btn btn-primary btn-block">
+        <button
+            type="button"
+            class="btn btn-primary btn-block"
+            id="generate-schedule"
+        >
             Generate Optimal Schedule
         </button>
+        <div class="container schedule-result">
+            <table class="table" style="display: none">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Ride</th>
+                        <th scope="col">Time</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Larry</td>
+                        <td>the Bird</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
@@ -154,6 +199,98 @@
                 });
             }
         });
+    });
+
+    function generate_schedule() {
+        var magic;
+        if ($("#magic-checkbox").prop("checked") == true) {
+            magic = true;
+        } else if ($("#magic-checkbox").prop("checked") == false) {
+            magic = false;
+        }
+
+        var festival;
+        if ($("#festival-checkbox").prop("checked") == true) {
+            festival = true;
+        } else if ($("#festival-checkbox").prop("checked") == false) {
+            festival = false;
+        }
+
+        var date = $("input[name='datetime']").val();
+
+        var date_array = date.split("/");
+        var day = date_array[0];
+        if (day.charAt(0) == "0") {
+            day = day.replace("0", "");
+        }
+        var month = date_array[1];
+        if (month.charAt(0) == "0") {
+            month = month.replace("0", "");
+        }
+        var year = date_array[2];
+
+        var ride_list = [];
+        var counter = 0;
+
+        $(".schedule-ride").each(function(index) {
+            if ($(this).prop("checked") == true) {
+                ride_list[counter] = $(this).val();
+                counter += 1;
+                console.log($(this).val());
+            }
+        });
+
+        var data = JSON.stringify({
+            day: day,
+            month: month,
+            year: year,
+            ride_list: ride_list,
+            magic_hour_bool: magic,
+            festival_bool: festival
+        });
+
+        console.log(data);
+        $(".schedule-result").prepend(
+            "<img id='loading-image' src='/static/img/loading2.gif' width='300px'>"
+        );
+
+        $([document.documentElement, document.body]).animate(
+            {
+                scrollTop: $(".schedule-result").offset().top
+            },
+            2000
+        );
+
+        $.ajax({
+            type: "POST",
+            url: "/generate_schedule",
+            data: data,
+            headers: {
+                "Content-Type": "application/json"
+            },
+            success: function(result) {
+                $("table").show();
+                $("#loading-image").remove();
+                for (var key in result) {
+                    console.log(result[key])
+                    console.log(key)
+                    console.log(result[key].ride_name)
+                    console.log(result[key].datetime)
+                    $(".schedule-result").append(
+                        "<tr><th scope='row'>"+ key +"</th><td>"+ result[key].ride_name +"</td><td>"+ result[key].datetime +"</td></tr>"
+                    );
+                }
+
+            },
+            error: function(result) {
+                $("#loading-image").remove();
+                console.log(result);
+            }
+        });
+    }
+
+    $("#generate-schedule").click(function() {
+        generate_schedule();
     });
 </script>
 

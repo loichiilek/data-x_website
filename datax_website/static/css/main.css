@@ -11,6 +11,13 @@ body {
     border-style: solid;
     background-color: #fff;
     border-radius: 5px;
+    text-align: center;
+}
+
+#wait-time-result {
+    height: 100px; 
+    text-align: center;
+    vertical-align: middle;
 }
 
 .container.result > h3 {
@@ -25,6 +32,10 @@ body {
 .container.result > p {
     text-align: center;
     padding-bottom: 10px;
+}
+
+.container.schedule-result {
+    text-align: center;
 }
 
 /* Information Stuff */
@@ -81,6 +92,7 @@ body {
 /* Ride-Statistics */
 .container.ride-statistics {
     margin: auto;
+
 }
 
 .container.ride-statistics > h3 {

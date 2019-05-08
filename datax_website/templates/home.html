@@ -215,7 +215,7 @@
         </div>
     </div>
 
-    <div class="container testimonial">
+    <div class="container testimonial module">
         <h3 class="module">Testimonial</h3>
         <p class="module">Hear what our users have to say!</p>
         <div class="row">
@@ -301,17 +301,11 @@
             });
         });
 
-        allMods.each(function(i, el) {
-            var el = $(el);
-            if (el.visible(true)) {
-                el.addClass("already-visible");
-            }
-        });
 
         function query_function() {
+            console.log("test");
             var datetime = $("input[name='datetime']").val();
             var ride = $("select[name='ride']").val();
-            //var fastpass = $("select[name='fastpass']").val();
 
             var data = JSON.stringify({
                 datetime: datetime,
@@ -319,9 +313,13 @@
                 fastpass: 1
             });
             $("#container-result").show();
+            $("#wait-time-result").contents().filter(function(){
+                return (this.nodeType == 3);
+            }).remove();
             $("#wait-time-result").prepend(
                 "<img src='/static/img/loading2.gif' width='100px'>"
             );
+
             console.log(data);
             $.ajax({
                 type: "POST",
@@ -336,8 +334,8 @@
                     console.log(selector);
                     var text_result =
                         $(selector).text() + ": " + result + " minutes";
-                    $("#wait-time-result").text(text_result);
-                    $("#container-result").show();
+                    
+                    setTimeout(function(){ $("#wait-time-result").text(text_result); }, 1000);
                 },
                 error: function(result) {
                     alert("Please fill in all the inputs");
