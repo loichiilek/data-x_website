@@ -238,6 +238,9 @@
         $(".schedule-result").prepend(
             "<img id='loading-image' src='/static/img/loading2.gif' width='300px'>"
         );
+        $("#table-body").empty()
+        $("table").hide();
+
 
         $([document.documentElement, document.body]).animate(
             {
