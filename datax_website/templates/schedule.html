@@ -204,11 +204,11 @@
         var date = $("input[name='datetime']").val();
 
         var date_array = date.split("/");
-        var day = date_array[0];
+        var day = date_array[1];
         if (day.charAt(0) == "0") {
             day = day.replace("0", "");
         }
-        var month = date_array[1];
+        var month = date_array[0];
         if (month.charAt(0) == "0") {
             month = month.replace("0", "");
         }
@@ -271,6 +271,7 @@
             },
             error: function(result) {
                 $("#loading-image").remove();
+                alert("Please fill in all the inputs");
                 console.log(result);
             }
         });
